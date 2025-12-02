@@ -137,8 +137,19 @@ export const Canvas = ({ width = 800, height = 600 }: CanvasProps) => {
             fontFamily: textEl.fontFamily,
             fill: textEl.color,
             angle: textEl.rotation,
+            editable: true,
           });
           (fabricObject as any).elementId = textEl.id;
+          
+          // Handle text content changes during inline editing
+          (fabricObject as any).on('changed', () => {
+            const textbox = fabricObject as Textbox;
+            updateElement(textEl.id, { 
+              content: textbox.text || '',
+              width: textbox.width || textEl.width,
+              height: textbox.height || textEl.height,
+            });
+          });
           break;
         }
 

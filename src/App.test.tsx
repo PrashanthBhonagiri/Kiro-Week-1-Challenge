@@ -1,9 +1,11 @@
 import { describe, it, expect, vi } from 'vitest';
 import { render, screen } from '@testing-library/react';
 
-// Mock the Canvas component to avoid Fabric.js initialization issues in tests
+// Mock the components to avoid Fabric.js initialization issues in tests
 vi.mock('./components', () => ({
   Canvas: () => <div data-testid="canvas-mock">Canvas Component</div>,
+  Toolbar: () => <div data-testid="toolbar-mock">Toolbar Component</div>,
+  PropertiesPanel: () => <div data-testid="properties-panel-mock">Properties Panel Component</div>,
 }));
 
 import App from './App';

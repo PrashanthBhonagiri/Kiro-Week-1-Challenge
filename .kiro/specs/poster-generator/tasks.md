@@ -60,7 +60,7 @@
   - Test element rendering for each type
   - Test selection state updates
 
-- [ ] 5. Implement text element functionality
+- [x] 5. Implement text element functionality
   - Create addText function that creates TextElement with default properties
   - Implement text editing (inline editing on canvas)
   - Implement font family selector with common fonts list
