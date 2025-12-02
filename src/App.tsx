@@ -1,7 +1,26 @@
+import { useEffect } from 'react'
 import './App.css'
 import { Canvas, Toolbar, PropertiesPanel } from './components'
+import { useStore } from './store'
 
 function App() {
+  const selectedElementId = useStore((state) => state.selectedElementId);
+  const deleteElement = useStore((state) => state.deleteElement);
+
+  // Handle keyboard shortcuts
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      // Delete key - delete selected element
+      if (e.key === 'Delete' && selectedElementId) {
+        e.preventDefault();
+        deleteElement(selectedElementId);
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [selectedElementId, deleteElement]);
+
   return (
     <div className="min-h-screen bg-gray-100 p-8">
       <div className="max-w-7xl mx-auto">

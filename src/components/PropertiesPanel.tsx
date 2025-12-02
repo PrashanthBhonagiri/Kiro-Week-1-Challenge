@@ -14,9 +14,16 @@ export const PropertiesPanel = ({ className = '' }: PropertiesPanelProps) => {
   const elements = useStore((state) => state.elements);
   const selectedElementId = useStore((state) => state.selectedElementId);
   const updateElement = useStore((state) => state.updateElement);
+  const deleteElement = useStore((state) => state.deleteElement);
 
   // Find the selected element
   const selectedElement = elements.find((el) => el.id === selectedElementId);
+
+  const handleDelete = () => {
+    if (selectedElementId) {
+      deleteElement(selectedElementId);
+    }
+  };
 
   if (!selectedElement) {
     return (
@@ -32,7 +39,16 @@ export const PropertiesPanel = ({ className = '' }: PropertiesPanelProps) => {
 
     return (
       <div className={`p-4 bg-gray-50 rounded-lg space-y-4 ${className}`}>
-        <h3 className="font-semibold text-gray-700 mb-3">Text Properties</h3>
+        <div className="flex justify-between items-center mb-3">
+          <h3 className="font-semibold text-gray-700">Text Properties</h3>
+          <button
+            onClick={handleDelete}
+            className="px-3 py-1 bg-red-500 text-white text-sm rounded hover:bg-red-600 transition-colors"
+            title="Delete Element (Delete)"
+          >
+            Delete
+          </button>
+        </div>
 
         {/* Font Family Selector */}
         <div>
@@ -137,6 +153,18 @@ export const PropertiesPanel = ({ className = '' }: PropertiesPanelProps) => {
   // Placeholder for other element types
   return (
     <div className={`p-4 bg-gray-50 rounded-lg ${className}`}>
+      <div className="flex justify-between items-center mb-3">
+        <h3 className="font-semibold text-gray-700">
+          {selectedElement.type.charAt(0).toUpperCase() + selectedElement.type.slice(1)} Properties
+        </h3>
+        <button
+          onClick={handleDelete}
+          className="px-3 py-1 bg-red-500 text-white text-sm rounded hover:bg-red-600 transition-colors"
+          title="Delete Element (Delete)"
+        >
+          Delete
+        </button>
+      </div>
       <p className="text-gray-500 text-sm">
         Properties for {selectedElement.type} elements coming soon
       </p>

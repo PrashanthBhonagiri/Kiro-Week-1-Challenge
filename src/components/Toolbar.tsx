@@ -12,14 +12,22 @@ interface ToolbarProps {
 export const Toolbar = ({ className = '' }: ToolbarProps) => {
   const canUndo = useStore((state) => state.canUndo());
   const canRedo = useStore((state) => state.canRedo());
+  const selectedElementId = useStore((state) => state.selectedElementId);
   const undo = useStore((state) => state.undo);
   const redo = useStore((state) => state.redo);
   const clearCanvas = useStore((state) => state.clearCanvas);
   const addElement = useStore((state) => state.addElement);
+  const deleteElement = useStore((state) => state.deleteElement);
 
   const handleAddText = () => {
     const textElement = createTextElement();
     addElement(textElement);
+  };
+
+  const handleDelete = () => {
+    if (selectedElementId) {
+      deleteElement(selectedElementId);
+    }
   };
 
   return (
@@ -52,6 +60,14 @@ export const Toolbar = ({ className = '' }: ToolbarProps) => {
           title="Add Text"
         >
           Add Text
+        </button>
+        <button
+          onClick={handleDelete}
+          disabled={!selectedElementId}
+          className="px-3 py-2 bg-orange-500 text-white rounded hover:bg-orange-600 disabled:bg-gray-300 disabled:cursor-not-allowed transition-colors"
+          title="Delete Selected Element (Delete)"
+        >
+          Delete
         </button>
       </div>
 
