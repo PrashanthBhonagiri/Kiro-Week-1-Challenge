@@ -8,7 +8,7 @@
   - Create folder structure: components/, hooks/, utils/, types/, store/
   - _Requirements: All requirements_
 
-- [ ] 2. Implement core data models and types
+- [x] 2. Implement core data models and types
   - Define TypeScript interfaces for CanvasElement, TextElement, LineElement, ImageElement
   - Define Action interface for undo/redo history
   - Define PresetSize type and dimension mappings
