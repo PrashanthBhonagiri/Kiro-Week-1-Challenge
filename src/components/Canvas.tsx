@@ -86,6 +86,9 @@ export const Canvas = ({ width = 800, height = 600 }: CanvasProps) => {
       updateElement(elementId, updates);
     });
 
+    // Note: Aspect ratio is locked via lockUniScaling property on image objects
+    // No need for scaling event handler that causes re-renders
+
     // Cleanup
     return () => {
       canvas.dispose();
@@ -177,6 +180,7 @@ export const Canvas = ({ width = 800, height = 600 }: CanvasProps) => {
                 angle: imgEl.rotation,
                 scaleX: imgEl.width / (img.width || 1),
                 scaleY: imgEl.height / (img.height || 1),
+                lockUniScaling: true, // Lock aspect ratio during scaling
               });
               (img as any).elementId = imgEl.id;
               fabricObject = img;

@@ -1,6 +1,6 @@
 import { useStore } from '../store';
 import { COMMON_FONTS } from '../utils';
-import type { TextElement } from '../types';
+import type { TextElement, ImageElement } from '../types';
 
 interface PropertiesPanelProps {
   className?: string;
@@ -145,6 +145,187 @@ export const PropertiesPanel = ({ className = '' }: PropertiesPanelProps) => {
           <p className="text-xs text-gray-500 mt-1">
             Tip: Double-click text on canvas for inline editing
           </p>
+        </div>
+      </div>
+    );
+  }
+
+  // Render image element properties
+  if (selectedElement.type === 'image') {
+    const imageElement = selectedElement as ImageElement;
+    const aspectRatio = imageElement.width / imageElement.height;
+
+    const handleWidthChange = (newWidth: number) => {
+      // Maintain aspect ratio when changing width
+      const newHeight = newWidth / aspectRatio;
+      updateElement(imageElement.id, { 
+        width: newWidth,
+        height: newHeight,
+      });
+    };
+
+    const handleHeightChange = (newHeight: number) => {
+      // Maintain aspect ratio when changing height
+      const newWidth = newHeight * aspectRatio;
+      updateElement(imageElement.id, { 
+        width: newWidth,
+        height: newHeight,
+      });
+    };
+
+    return (
+      <div className={`p-4 bg-gray-50 rounded-lg space-y-4 ${className}`}>
+        <div className="flex justify-between items-center mb-3">
+          <h3 className="font-semibold text-gray-700">Image Properties</h3>
+          <button
+            onClick={handleDelete}
+            className="px-3 py-1 bg-red-500 text-white text-sm rounded hover:bg-red-600 transition-colors"
+            title="Delete Element (Delete)"
+          >
+            Delete
+          </button>
+        </div>
+
+        {/* Image Preview */}
+        <div>
+          <label className="block text-sm font-medium text-gray-700 mb-2">
+            Preview
+          </label>
+          <div className="border border-gray-300 rounded-lg p-2 bg-white flex items-center justify-center" style={{ minHeight: '100px' }}>
+            <img 
+              src={imageElement.src} 
+              alt="Logo preview" 
+              className="max-w-full max-h-32 object-contain"
+            />
+          </div>
+        </div>
+
+        {/* Width Control */}
+        <div>
+          <label htmlFor="image-width" className="block text-sm font-medium text-gray-700 mb-1">
+            Width: {Math.round(imageElement.width)}px
+          </label>
+          <input
+            id="image-width"
+            type="range"
+            min="20"
+            max="800"
+            value={imageElement.width}
+            onChange={(e) => handleWidthChange(parseInt(e.target.value))}
+            className="w-full"
+          />
+          <div className="flex gap-2 mt-1">
+            <input
+              type="number"
+              min="20"
+              max="800"
+              value={Math.round(imageElement.width)}
+              onChange={(e) => {
+                const value = parseInt(e.target.value);
+                if (!isNaN(value) && value >= 20 && value <= 800) {
+                  handleWidthChange(value);
+                }
+              }}
+              className="w-20 px-2 py-1 border border-gray-300 rounded text-sm"
+            />
+            <span className="text-sm text-gray-500 self-center">px</span>
+          </div>
+        </div>
+
+        {/* Height Control */}
+        <div>
+          <label htmlFor="image-height" className="block text-sm font-medium text-gray-700 mb-1">
+            Height: {Math.round(imageElement.height)}px
+          </label>
+          <input
+            id="image-height"
+            type="range"
+            min="20"
+            max="800"
+            value={imageElement.height}
+            onChange={(e) => handleHeightChange(parseInt(e.target.value))}
+            className="w-full"
+          />
+          <div className="flex gap-2 mt-1">
+            <input
+              type="number"
+              min="20"
+              max="800"
+              value={Math.round(imageElement.height)}
+              onChange={(e) => {
+                const value = parseInt(e.target.value);
+                if (!isNaN(value) && value >= 20 && value <= 800) {
+                  handleHeightChange(value);
+                }
+              }}
+              className="w-20 px-2 py-1 border border-gray-300 rounded text-sm"
+            />
+            <span className="text-sm text-gray-500 self-center">px</span>
+          </div>
+        </div>
+
+        {/* Aspect Ratio Info */}
+        <div className="bg-blue-50 border border-blue-200 rounded p-2">
+          <p className="text-xs text-blue-800">
+            <strong>Aspect Ratio:</strong> {aspectRatio.toFixed(2)}:1
+          </p>
+          <p className="text-xs text-blue-600 mt-1">
+            Width and height are locked to maintain aspect ratio
+          </p>
+        </div>
+
+        {/* Position Controls */}
+        <div className="grid grid-cols-2 gap-3">
+          <div>
+            <label htmlFor="image-x" className="block text-sm font-medium text-gray-700 mb-1">
+              X Position
+            </label>
+            <input
+              id="image-x"
+              type="number"
+              value={Math.round(imageElement.x)}
+              onChange={(e) => {
+                const value = parseInt(e.target.value);
+                if (!isNaN(value)) {
+                  updateElement(imageElement.id, { x: value });
+                }
+              }}
+              className="w-full px-2 py-1 border border-gray-300 rounded text-sm"
+            />
+          </div>
+          <div>
+            <label htmlFor="image-y" className="block text-sm font-medium text-gray-700 mb-1">
+              Y Position
+            </label>
+            <input
+              id="image-y"
+              type="number"
+              value={Math.round(imageElement.y)}
+              onChange={(e) => {
+                const value = parseInt(e.target.value);
+                if (!isNaN(value)) {
+                  updateElement(imageElement.id, { y: value });
+                }
+              }}
+              className="w-full px-2 py-1 border border-gray-300 rounded text-sm"
+            />
+          </div>
+        </div>
+
+        {/* Rotation Control */}
+        <div>
+          <label htmlFor="image-rotation" className="block text-sm font-medium text-gray-700 mb-1">
+            Rotation: {Math.round(imageElement.rotation)}°
+          </label>
+          <input
+            id="image-rotation"
+            type="range"
+            min="0"
+            max="360"
+            value={imageElement.rotation}
+            onChange={(e) => updateElement(imageElement.id, { rotation: parseInt(e.target.value) })}
+            className="w-full"
+          />
         </div>
       </div>
     );
