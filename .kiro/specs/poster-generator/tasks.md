@@ -43,7 +43,7 @@
   - Test history index management
   - Test state immutability
 
-- [ ] 4. Build canvas component with Fabric.js
+- [x] 4. Build canvas component with Fabric.js
   - Create Canvas component that wraps Fabric.js canvas
   - Implement canvas initialization with white background
   - Implement element rendering for text, lines, and images
