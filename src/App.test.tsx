@@ -6,6 +6,7 @@ vi.mock('./components', () => ({
   Canvas: () => <div data-testid="canvas-mock">Canvas Component</div>,
   Toolbar: () => <div data-testid="toolbar-mock">Toolbar Component</div>,
   PropertiesPanel: () => <div data-testid="properties-panel-mock">Properties Panel Component</div>,
+  ExportDialog: () => <div data-testid="export-dialog-mock">Export Dialog Component</div>,
 }));
 
 import App from './App';

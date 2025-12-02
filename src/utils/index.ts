@@ -44,7 +44,7 @@ export const ALLOWED_IMAGE_TYPES = [
  * Generate a unique ID for canvas elements
  */
 export const generateId = (): string => {
-  return `${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
+  return `${Date.now()}-${Math.random().toString(36).substring(2, 11)}`;
 };
 
 /**
@@ -170,4 +170,34 @@ export const createImageElement = (
     height: scaledHeight,
     isBackground: false,
   };
+};
+
+/**
+ * Sanitize a filename by removing invalid characters and ensuring .png extension
+ * @param filename - The filename to sanitize
+ * @returns A sanitized filename with .png extension
+ */
+export const sanitizeFilename = (filename: string): string => {
+  // Remove or replace invalid characters for filenames
+  // Invalid characters: / \ : * ? " < > |
+  let sanitized = filename
+    .replace(/[/\\:*?"<>|]/g, '_')
+    .trim();
+
+  // Remove leading/trailing dots and spaces
+  sanitized = sanitized.replace(/^[.\s]+|[.\s]+$/g, '');
+
+  // If empty after sanitization, use default name
+  if (!sanitized) {
+    sanitized = 'poster';
+  }
+
+  // Ensure .png extension
+  if (!sanitized.toLowerCase().endsWith('.png')) {
+    // Remove any existing extension
+    sanitized = sanitized.replace(/\.[^.]*$/, '');
+    sanitized = `${sanitized}.png`;
+  }
+
+  return sanitized;
 };

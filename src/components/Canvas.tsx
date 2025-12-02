@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, forwardRef, useImperativeHandle } from 'react';
 import { Canvas as FabricCanvas, FabricImage, Textbox, Line, FabricObject } from 'fabric';
 import { useStore } from '../store';
 import type { CanvasElement, TextElement, LineElement, ImageElement } from '../types';
@@ -8,11 +8,15 @@ interface CanvasProps {
   height?: number;
 }
 
+export interface CanvasRef {
+  getFabricCanvas: () => FabricCanvas | null;
+}
+
 /**
  * Canvas component that wraps Fabric.js for poster creation
  * Handles rendering of text, line, and image elements with drag-and-drop support
  */
-export const Canvas = ({ width = 800, height = 600 }: CanvasProps) => {
+export const Canvas = forwardRef<CanvasRef, CanvasProps>(({ width = 800, height = 600 }, ref) => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const fabricCanvasRef = useRef<FabricCanvas | null>(null);
   
@@ -21,6 +25,11 @@ export const Canvas = ({ width = 800, height = 600 }: CanvasProps) => {
   const canvasBackground = useStore((state) => state.canvasBackground);
   const updateElement = useStore((state) => state.updateElement);
   const setSelectedElement = useStore((state) => state.setSelectedElement);
+
+  // Expose the Fabric canvas instance to parent components
+  useImperativeHandle(ref, () => ({
+    getFabricCanvas: () => fabricCanvasRef.current,
+  }));
 
   // Initialize Fabric.js canvas
   useEffect(() => {
@@ -212,4 +221,4 @@ export const Canvas = ({ width = 800, height = 600 }: CanvasProps) => {
       <canvas ref={canvasRef} />
     </div>
   );
-};
+});
