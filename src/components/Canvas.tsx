@@ -217,7 +217,11 @@ export const Canvas = forwardRef<CanvasRef, CanvasProps>(({ width = 800, height 
   }, [elements, selectedElementId]);
 
   return (
-    <div className="canvas-container border-2 border-gray-300 rounded-lg overflow-hidden">
+    <div 
+      className="canvas-container border-2 border-gray-300 rounded-lg overflow-hidden bg-white"
+      role="img"
+      aria-label="Poster canvas workspace"
+    >
       <canvas ref={canvasRef} />
     </div>
   );

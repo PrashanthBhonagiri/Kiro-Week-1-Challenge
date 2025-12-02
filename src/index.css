@@ -1,3 +1,222 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
+
+/* Base styles */
+body {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-feature-settings: 'kern' 1;
+  text-rendering: optimizeLegibility;
+}
+
+/* Improve focus visibility for accessibility */
+*:focus-visible {
+  outline: 2px solid #3b82f6;
+  outline-offset: 2px;
+}
+
+/* Button base styles */
+.btn {
+  padding: 0.5rem 1rem;
+  border-radius: 0.375rem;
+  font-weight: 500;
+  transition: all 0.2s ease-in-out;
+}
+
+.btn:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.5);
+}
+
+.btn-primary {
+  background-color: #2563eb;
+  color: white;
+}
+
+.btn-primary:hover:not(:disabled) {
+  background-color: #1d4ed8;
+}
+
+.btn-primary:active:not(:disabled) {
+  background-color: #1e40af;
+}
+
+.btn-primary:disabled {
+  background-color: #d1d5db;
+  cursor: not-allowed;
+}
+
+.btn-secondary {
+  background-color: #e5e7eb;
+  color: #374151;
+}
+
+.btn-secondary:hover {
+  background-color: #d1d5db;
+}
+
+.btn-secondary:active {
+  background-color: #9ca3af;
+}
+
+.btn-success {
+  background-color: #16a34a;
+  color: white;
+}
+
+.btn-success:hover {
+  background-color: #15803d;
+}
+
+.btn-success:active {
+  background-color: #166534;
+}
+
+.btn-danger {
+  background-color: #dc2626;
+  color: white;
+}
+
+.btn-danger:hover:not(:disabled) {
+  background-color: #b91c1c;
+}
+
+.btn-danger:active:not(:disabled) {
+  background-color: #991b1b;
+}
+
+.btn-danger:disabled {
+  background-color: #d1d5db;
+  cursor: not-allowed;
+}
+
+.btn-warning {
+  background-color: #ea580c;
+  color: white;
+}
+
+.btn-warning:hover:not(:disabled) {
+  background-color: #c2410c;
+}
+
+.btn-warning:active:not(:disabled) {
+  background-color: #9a3412;
+}
+
+.btn-warning:disabled {
+  background-color: #d1d5db;
+  cursor: not-allowed;
+}
+
+.btn-info {
+  background-color: #4f46e5;
+  color: white;
+}
+
+.btn-info:hover:not(:disabled) {
+  background-color: #4338ca;
+}
+
+.btn-info:active:not(:disabled) {
+  background-color: #3730a3;
+}
+
+.btn-info:disabled {
+  background-color: #d1d5db;
+  cursor: not-allowed;
+}
+
+.btn-purple {
+  background-color: #9333ea;
+  color: white;
+}
+
+.btn-purple:hover {
+  background-color: #7e22ce;
+}
+
+.btn-purple:active {
+  background-color: #6b21a8;
+}
+
+/* Input base styles */
+.input {
+  padding: 0.5rem 0.75rem;
+  border: 1px solid #d1d5db;
+  border-radius: 0.375rem;
+  transition: all 0.2s ease-in-out;
+}
+
+.input:focus {
+  outline: none;
+  border-color: transparent;
+  box-shadow: 0 0 0 2px #3b82f6;
+}
+
+/* Card styles */
+.card {
+  background-color: white;
+  border-radius: 0.5rem;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  transition: box-shadow 0.2s ease-in-out;
+}
+
+.card:hover {
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+}
+
+/* Panel styles */
+.panel {
+  background-color: #f9fafb;
+  border-radius: 0.5rem;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+/* Label styles */
+.label {
+  display: block;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: #374151;
+  margin-bottom: 0.25rem;
+}
+
+/* Error message styles */
+.error-message {
+  color: #dc2626;
+  font-size: 0.875rem;
+  margin-top: 0.5rem;
+}
+
+/* Success message styles */
+.success-message {
+  color: #16a34a;
+  font-size: 0.875rem;
+  margin-top: 0.5rem;
+}
+
+/* Info message styles */
+.info-message {
+  color: #2563eb;
+  font-size: 0.875rem;
+  margin-top: 0.5rem;
+}
+
+/* Custom utility classes */
+.text-balance {
+  text-wrap: balance;
+}
+
+.scrollbar-thin {
+  scrollbar-width: thin;
+}
+
+.scrollbar-none {
+  scrollbar-width: none;
+}
+
+.scrollbar-none::-webkit-scrollbar {
+  display: none;
+}

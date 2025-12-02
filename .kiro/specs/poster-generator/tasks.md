@@ -180,7 +180,7 @@
   - **Property 20: Z-index changes reorder elements**
   - **Validates: Requirements 10.4**
 
-- [ ] 13. Implement export functionality
+- [x] 13. Implement export functionality
   - Create ExportDialog component with name input and preset size selector
   - Implement preset size options: Instagram Story (1080x1920), Instagram Post (1080x1080), WhatsApp (1200x630), Twitter (1200x675)
   - Implement canvas-to-PNG conversion using toBlob API
@@ -228,7 +228,7 @@
   - Test keyboard event handlers
   - Test shortcut actions trigger correct state changes
 
-- [ ] 16. Style and polish UI
+- [x] 16. Style and polish UI
   - Apply consistent styling to all components
   - Implement responsive layout for different screen sizes
   - Add visual feedback for interactions (hover states, active states)

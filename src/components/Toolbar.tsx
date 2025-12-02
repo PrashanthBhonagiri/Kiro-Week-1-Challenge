@@ -112,78 +112,110 @@ export const Toolbar = ({ className = '' }: ToolbarProps) => {
     <div className={className}>
       <div className="flex gap-2 items-center flex-wrap">
         {/* History controls */}
-        <div className="flex gap-1 border-r pr-2">
+        <div className="flex gap-2 border-r border-gray-300 pr-3 mr-1">
           <button
             onClick={undo}
             disabled={!canUndo}
-            className="px-3 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 disabled:bg-gray-300 disabled:cursor-not-allowed transition-colors"
-            title="Undo (Ctrl+Z)"
+            className="btn btn-primary text-sm px-3 py-2"
+            title="Undo last action"
+            aria-label="Undo last action"
           >
-            Undo
+            <svg className="w-4 h-4 sm:mr-1 inline-block" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 10h10a8 8 0 018 8v2M3 10l6 6m-6-6l6-6" />
+            </svg>
+            <span className="hidden sm:inline">Undo</span>
           </button>
           <button
             onClick={redo}
             disabled={!canRedo}
-            className="px-3 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 disabled:bg-gray-300 disabled:cursor-not-allowed transition-colors"
-            title="Redo (Ctrl+Y)"
+            className="btn btn-primary text-sm px-3 py-2"
+            title="Redo last undone action"
+            aria-label="Redo last undone action"
           >
-            Redo
+            <svg className="w-4 h-4 sm:mr-1 inline-block" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 10h-10a8 8 0 00-8 8v2m18-10l-6 6m6-6l-6-6" />
+            </svg>
+            <span className="hidden sm:inline">Redo</span>
           </button>
         </div>
 
         {/* Element controls */}
-        <div className="flex gap-1 border-r pr-2">
+        <div className="flex gap-2 border-r border-gray-300 pr-3 mr-1 flex-wrap">
           <button
             onClick={handleAddText}
-            className="px-3 py-2 bg-green-500 text-white rounded hover:bg-green-600 transition-colors"
-            title="Add Text"
+            className="btn btn-success text-sm px-3 py-2"
+            title="Add text element to canvas"
+            aria-label="Add text element"
           >
-            Add Text
+            <svg className="w-4 h-4 sm:mr-1 inline-block" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+            </svg>
+            <span className="hidden sm:inline">Add Text</span>
           </button>
           <button
             onClick={handleLogoUploadClick}
-            className="px-3 py-2 bg-purple-500 text-white rounded hover:bg-purple-600 transition-colors"
-            title="Upload Logo"
+            className="btn btn-purple text-sm px-3 py-2"
+            title="Upload logo image"
+            aria-label="Upload logo image"
           >
-            Upload Logo
+            <svg className="w-4 h-4 sm:mr-1 inline-block" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+            </svg>
+            <span className="hidden sm:inline">Upload Logo</span>
           </button>
           <button
             onClick={handleDelete}
             disabled={!selectedElementId}
-            className="px-3 py-2 bg-orange-500 text-white rounded hover:bg-orange-600 disabled:bg-gray-300 disabled:cursor-not-allowed transition-colors"
-            title="Delete Selected Element (Delete)"
+            className="btn btn-warning text-sm px-3 py-2"
+            title="Delete selected element"
+            aria-label="Delete selected element"
           >
-            Delete
+            <svg className="w-4 h-4 sm:mr-1 inline-block" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+            </svg>
+            <span className="hidden sm:inline">Delete</span>
           </button>
         </div>
 
         {/* Background controls */}
-        <div className="flex gap-1 border-r pr-2">
+        <div className="flex gap-2 border-r border-gray-300 pr-3 mr-1 flex-wrap">
           <button
             onClick={handleBackgroundUploadClick}
-            className="px-3 py-2 bg-indigo-500 text-white rounded hover:bg-indigo-600 transition-colors"
-            title="Upload Background Image"
+            className="btn btn-info text-sm px-3 py-2"
+            title="Upload background image"
+            aria-label="Upload background image"
           >
-            Upload Background
+            <svg className="w-4 h-4 sm:mr-1 inline-block" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
+            </svg>
+            <span className="hidden sm:inline">Background</span>
           </button>
           <button
             onClick={handleRemoveBackground}
             disabled={!canvasBackground}
-            className="px-3 py-2 bg-indigo-500 text-white rounded hover:bg-indigo-600 disabled:bg-gray-300 disabled:cursor-not-allowed transition-colors"
-            title="Remove Background Image"
+            className="btn btn-info text-sm px-3 py-2"
+            title="Remove background image"
+            aria-label="Remove background image"
           >
-            Remove Background
+            <svg className="w-4 h-4 sm:mr-1 inline-block" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+            </svg>
+            <span className="hidden sm:inline">Remove BG</span>
           </button>
         </div>
 
         {/* Canvas controls */}
-        <div className="flex gap-1">
+        <div className="flex gap-2">
           <button
             onClick={clearCanvas}
-            className="px-3 py-2 bg-red-500 text-white rounded hover:bg-red-600 transition-colors"
-            title="Clear Canvas"
+            className="btn btn-danger text-sm px-3 py-2"
+            title="Clear entire canvas"
+            aria-label="Clear entire canvas"
           >
-            Clear
+            <svg className="w-4 h-4 sm:mr-1 inline-block" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2M3 12l6.414 6.414a2 2 0 001.414.586H19a2 2 0 002-2V7a2 2 0 00-2-2h-8.172a2 2 0 00-1.414.586L3 12z" />
+            </svg>
+            <span className="hidden sm:inline">Clear</span>
           </button>
         </div>
 
@@ -194,7 +226,7 @@ export const Toolbar = ({ className = '' }: ToolbarProps) => {
           accept="image/png,image/jpeg,image/jpg,image/gif,image/svg+xml"
           onChange={handleFileChange}
           className="hidden"
-          aria-label="Upload logo image"
+          aria-label="Upload logo image file"
         />
         <input
           ref={backgroundInputRef}
@@ -202,13 +234,16 @@ export const Toolbar = ({ className = '' }: ToolbarProps) => {
           accept="image/png,image/jpeg,image/jpg,image/gif,image/svg+xml"
           onChange={handleBackgroundFileChange}
           className="hidden"
-          aria-label="Upload background image"
+          aria-label="Upload background image file"
         />
       </div>
 
       {/* Error message */}
       {uploadError && (
-        <div className="mt-2 text-red-600 text-sm" role="alert">
+        <div className="error-message" role="alert" aria-live="polite">
+          <svg className="inline-block w-4 h-4 mr-1" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true">
+            <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clipRule="evenodd" />
+          </svg>
           {uploadError}
         </div>
       )}
