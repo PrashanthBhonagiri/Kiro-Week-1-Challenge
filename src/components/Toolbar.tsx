@@ -12,16 +12,19 @@ interface ToolbarProps {
  */
 export const Toolbar = ({ className = '' }: ToolbarProps) => {
   const fileInputRef = useRef<HTMLInputElement>(null);
+  const backgroundInputRef = useRef<HTMLInputElement>(null);
   const [uploadError, setUploadError] = useState<string | null>(null);
 
   const canUndo = useStore((state) => state.canUndo());
   const canRedo = useStore((state) => state.canRedo());
   const selectedElementId = useStore((state) => state.selectedElementId);
+  const canvasBackground = useStore((state) => state.canvasBackground);
   const undo = useStore((state) => state.undo);
   const redo = useStore((state) => state.redo);
   const clearCanvas = useStore((state) => state.clearCanvas);
   const addElement = useStore((state) => state.addElement);
   const deleteElement = useStore((state) => state.deleteElement);
+  const setCanvasBackground = useStore((state) => state.setCanvasBackground);
 
   const handleAddText = () => {
     const textElement = createTextElement();
@@ -66,6 +69,43 @@ export const Toolbar = ({ className = '' }: ToolbarProps) => {
     } catch (error) {
       setUploadError(error instanceof Error ? error.message : 'Failed to load image');
     }
+  };
+
+  const handleBackgroundUploadClick = () => {
+    setUploadError(null);
+    backgroundInputRef.current?.click();
+  };
+
+  const handleBackgroundFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    // Validate file
+    const validation = validateImageFile(file);
+    if (!validation.isValid) {
+      setUploadError(validation.error || 'Invalid file');
+      return;
+    }
+
+    try {
+      // Load image
+      const { src } = await loadImageFile(file);
+
+      // Set as canvas background
+      setCanvasBackground(src);
+
+      // Clear error and reset input
+      setUploadError(null);
+      if (backgroundInputRef.current) {
+        backgroundInputRef.current.value = '';
+      }
+    } catch (error) {
+      setUploadError(error instanceof Error ? error.message : 'Failed to load image');
+    }
+  };
+
+  const handleRemoveBackground = () => {
+    setCanvasBackground(null);
   };
 
   return (
@@ -117,6 +157,25 @@ export const Toolbar = ({ className = '' }: ToolbarProps) => {
           </button>
         </div>
 
+        {/* Background controls */}
+        <div className="flex gap-1 border-r pr-2">
+          <button
+            onClick={handleBackgroundUploadClick}
+            className="px-3 py-2 bg-indigo-500 text-white rounded hover:bg-indigo-600 transition-colors"
+            title="Upload Background Image"
+          >
+            Upload Background
+          </button>
+          <button
+            onClick={handleRemoveBackground}
+            disabled={!canvasBackground}
+            className="px-3 py-2 bg-indigo-500 text-white rounded hover:bg-indigo-600 disabled:bg-gray-300 disabled:cursor-not-allowed transition-colors"
+            title="Remove Background Image"
+          >
+            Remove Background
+          </button>
+        </div>
+
         {/* Canvas controls */}
         <div className="flex gap-1">
           <button
@@ -128,7 +187,7 @@ export const Toolbar = ({ className = '' }: ToolbarProps) => {
           </button>
         </div>
 
-        {/* Hidden file input */}
+        {/* Hidden file inputs */}
         <input
           ref={fileInputRef}
           type="file"
@@ -136,6 +195,14 @@ export const Toolbar = ({ className = '' }: ToolbarProps) => {
           onChange={handleFileChange}
           className="hidden"
           aria-label="Upload logo image"
+        />
+        <input
+          ref={backgroundInputRef}
+          type="file"
+          accept="image/png,image/jpeg,image/jpg,image/gif,image/svg+xml"
+          onChange={handleBackgroundFileChange}
+          className="hidden"
+          aria-label="Upload background image"
         />
       </div>
 

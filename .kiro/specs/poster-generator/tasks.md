@@ -129,7 +129,7 @@
   - Test image loading
   - Test error handling for invalid files
 
-- [ ] 9. Implement background image functionality
+- [x] 9. Implement background image functionality
   - Create file input for background upload
   - Implement setBackground function that updates canvas background
   - Implement background scaling to fit canvas
